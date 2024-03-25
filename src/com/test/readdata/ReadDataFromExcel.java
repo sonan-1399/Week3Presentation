@@ -91,30 +91,30 @@ public class ReadDataFromExcel {
 	}
 
 	private static void openAdminPage() throws Exception{
-		util.Click(excelValues.get("adminPageTab"));
+		util.click(excelValues.get("adminPageTab"));
 	}
 
 	private static void selectDataAccessMode() {
-		util.Click(excelValues.get("dataAccess_Soap"));
+		util.click(excelValues.get("dataAccess_Soap"));
 	}
 
 	private static void fillWebServiceDetails() {
-		util.SendKeys(excelValues.get("soapEndPoint"),excelValues.get("soapValue"));
-		util.SendKeys(excelValues.get("restEndPoint"), excelValues.get("restValue"));
-		util.SendKeys(excelValues.get("endPoint"), excelValues.get("endPointValue"));
+		util.sendKeys(excelValues.get("soapEndPoint"),excelValues.get("soapValue"));
+		util.sendKeys(excelValues.get("restEndPoint"), excelValues.get("restValue"));
+		util.sendKeys(excelValues.get("endPoint"), excelValues.get("endPointValue"));
 	}
 
 	private static void fillApplicationSettings() {
-		util.SendKeys(excelValues.get("initBalance"), excelValues.get("initBalance_Amt"));
-		util.SendKeys(excelValues.get("minBalance"), excelValues.get("minBalance_Amt"));
-		util.Select(excelValues.get("loanProvider"), excelValues.get("loanProvider_JMS"));
-		util.Select(excelValues.get("loanProcessor"), excelValues.get("loanProcessor_Combined"));	
+		util.sendKeys(excelValues.get("initBalance"), excelValues.get("initBalance_Amt"));
+		util.sendKeys(excelValues.get("minBalance"), excelValues.get("minBalance_Amt"));
+		util.select(excelValues.get("loanProvider"), excelValues.get("loanProvider_JMS"));
+		util.select(excelValues.get("loanProcessor"), excelValues.get("loanProcessor_Combined"));	
 	}
 
 	private static void submitData() {
-		util.Click(excelValues.get("submit"));
-		System.out.println(util.GetText(excelValues.get("successMsg")));
-		Assert.assertEquals(excelValues.get("expectedMsg"),util.GetText(excelValues.get("successMsg")), "Admin settings are not saved successfully");	
+		util.click(excelValues.get("submit"));
+		System.out.println(util.getText(excelValues.get("successMsg")));
+		Assert.assertEquals(excelValues.get("expectedMsg"),util.getText(excelValues.get("successMsg")), "Admin settings are not saved successfully");	
 	}
 
 	@AfterTest

@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -17,22 +18,20 @@ private WebDriver driver;
 		this.driver=driver;
 	}
 	
-	public void Click(String xpath){	
+	public void click(String xpath){	
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		By by = By.xpath(xpath);
 		wait.until(ExpectedConditions.elementToBeClickable(by));
 		driver.findElement(by).click();
 	}
 
-	public void Select(String xpath , String Option){
+	public void select(String xpath , String Option){
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		By by = By.xpath(xpath);
-		//wait.until(ExpectedConditions.elementToBeClickable(by));
-		//driver.findElement(by).click();
 		new Select(driver.findElement(by)).selectByVisibleText(Option);
 	}
 
-	public void SendKeys(String xpath , String input){
+	public void sendKeys(String xpath , String input){
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		By by = By.xpath(xpath);
 		wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -40,22 +39,43 @@ private WebDriver driver;
 		driver.findElement(by).sendKeys(input);
 	}
 
-	public String GetText(String xpath){
+	public String getText(String xpath){
 		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
 		By by=By.xpath(xpath);
 		wait.until(ExpectedConditions.elementToBeClickable(by));
 		return driver.findElement(by).getText();
 	}
 
-	public void Actions(String xpath) {
+	public void actions(String xpath , String xpath1) {
 		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
 		By by=By.xpath(xpath);
+		WebElement element = driver.findElement(by);
+		By by1 = By.xpath(xpath1);
+		WebElement element1 = driver.findElement(by1);
 		Actions actions = new Actions(driver);
-		actions.moveToElement((WebElement) by).perform();
+		actions.moveToElement(element).perform();
+		actions.moveToElement(element1).click().build().perform();		
 	}
 
-	public void SwitchToFrame(String nameOrId) {
+	public void switchToFrame(String xpath) {
 		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
-		driver.switchTo().frame(nameOrId);
+		By by=By.xpath(xpath);
+		WebElement element = driver.findElement(by);
+		driver.switchTo().frame(element);
+	}
+	
+	public WebDriver detailsToOpenApp(String url) {
+		System.setProperty("webdriver.chrome.exe", "C:/Users/snthadev/Documents/chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.get(url);
+		driver.manage().window().maximize();
+		System.out.println("Application Opened");
+		return driver;		
+	}
+	
+	public void closeApp(){
+		driver.quit();
+		System.out.println("Application is closed");
 	}
 }
